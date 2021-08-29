@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Slogan = ({number}) => {
+const SearchStatus = ({number}) => {
     let text = '';
     let classes = 'badge mb-3 mt-3 bg-'; 
 
@@ -31,4 +31,4 @@ const Slogan = ({number}) => {
     return <h1 className={classes} style={{fontSize: '40px'}}>{text}</h1>
 };
 
-export default Slogan;
+export default SearchStatus;
