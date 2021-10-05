@@ -1,50 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+
+import NavList from "./components/navList";
+import Home from "./components/home";
+import Login from "./components/login";
 import Users from "./components/users";
-import SearchStatus from "./components/searchStatus";
-import api from "./api";
+// import UserById from "./components/userById";
 
 function App() {
-    const [users, setUsers] = useState(api.users.fetchAll());
-    const [userStatus, setStatus] = useState("chosen");
-
-    const handleDelete = (userId) => {
-        const indexOfUser = users.findIndex((user) => user._id === userId);
-        const newUsers = [
-            ...users.slice(0, indexOfUser),
-            ...users.slice(indexOfUser + 1)
-        ];
-        setUsers(newUsers);
-    };
-
-    const handleToogleBookMark = (id) => {
-        userStatus === "not chosen"
-            ? setStatus("chosen")
-            : setStatus("not chosen");
-
-        const user = users.find((user) => user._id === id);
-        user.status && user.status === "chosen"
-            ? (user.status = "not chosen")
-            : (user.status = "chosen");
-        // setUsers(users.filter( (user) => {
-        //     if (user._id === id) {
-        //         user.status = !user.status;
-        //         return user;
-        //     }
-        //     return user;
-        // }))
-    };
-
     return (
-        <div>
-            <SearchStatus number={users.length} />
-            {users.length > 0 && (
-                <Users
-                    users={users}
-                    handleDelete={handleDelete}
-                    handleToogleBookMark={handleToogleBookMark}
-                />
-            )}
-        </div>
+        <>
+            <NavList />
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/login" component={Login} />
+                <Route path="/users/:userId?" component={Users} />
+                {/* <Route path="/users" component={Users} /> */}
+            </Switch>
+        </>
     );
 }
 
